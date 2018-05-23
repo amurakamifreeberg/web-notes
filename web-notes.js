@@ -22,5 +22,14 @@ app.post('/notes', (req, res) => {
   notes.push(req.body.note);
   res.redirect('/');
 });
+app.use('/ajax', express.static('ajax'));
 
+app.delete('/notes/:id', (req, res) => {
+ if(req.params.id < notes.length){
+   notes.splice(req.params.id, 1);
+   res.send('deleted');
+ }else{
+   res.send("Error! That index value is out of bounds and the note does not exist.")
+ }
+});
 
